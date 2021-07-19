@@ -34,7 +34,11 @@ router.post("/login", (req, res) => {
 
   if (creds.email && creds.password) {
     userDB.loginUser(creds).then(user => {
-      if (user && bcrypt.compareSync(creds.password, user.password)) {
+      if (
+        user &&
+        bcrypt.compareSync(creds.password, user.password) &&
+        user.admin
+      ) {
         const token = genToken(user);
         res.status(200).json({ token, user: user.fName });
       } else {
@@ -45,3 +49,33 @@ router.post("/login", (req, res) => {
     res.status(400).json({ message: "Input fields missing." });
   }
 });
+
+router.put("/update", protected, (req, res) => {
+  // body should contain user id to update and admin flag
+  const userInfo = req.body;
+
+  userDB
+    .updateUser(userInfo)
+    .then(result => {
+      res.status(200).json({ result, message: "User is updated." });
+    })
+    .catch(err => {
+      res.status(500).json({ message: "User failed to update" });
+    });
+});
+
+router.delete("/delete", protected, (req, res) => {
+  // body should contain user id to delete
+  const userInfo = req.body;
+
+  userDB
+    .deleteUser(userInfo)
+    .then(result => {
+      res.status(200).json({ result, message: "User is deleted." });
+    })
+    .catch(err => {
+      res.status(500).json({ message: "User failed to delete." });
+    });
+});
+
+module.exports = router;
