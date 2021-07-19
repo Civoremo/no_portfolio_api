@@ -5,6 +5,7 @@ const db = require("../knex");
 module.exports = {
   registerUser,
   loginUser,
+  updateUser,
 };
 
 function registerUser(info) {
@@ -22,4 +23,8 @@ function loginUser(info) {
       return [];
     }
   });
+}
+
+function updateUser(user) {
+  return db("users").where({ id: user.id }).update({ admin: user.admin });
 }
