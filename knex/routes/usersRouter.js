@@ -37,12 +37,12 @@ router.post("/login", (req, res) => {
       if (
         user &&
         bcrypt.compareSync(creds.password, user.password) &&
-        user.admin
+        user.admin === true
       ) {
         const token = genToken(user);
         res.status(200).json({ token, user: user.fName });
       } else {
-        res.status(404).json({ message: "Invalid login." });
+        res.status(403).json({ message: "Invalid login." });
       }
     });
   } else {
@@ -68,14 +68,18 @@ router.delete("/delete", protected, (req, res) => {
   // body should contain user id to delete
   const userInfo = req.body;
 
-  userDB
-    .deleteUser(userInfo)
-    .then(result => {
-      res.status(200).json({ result, message: "User is deleted." });
-    })
-    .catch(err => {
-      res.status(500).json({ message: "User failed to delete." });
-    });
+  if (req.decodedToken.id !== userInfo.id) {
+    userDB
+      .deleteUser(userInfo)
+      .then(result => {
+        res.status(200).json({ result, message: "User is deleted." });
+      })
+      .catch(err => {
+        res.status(500).json({ message: "User failed to delete." });
+      });
+  } else {
+    res.status(500).json({ message: "Cannot delete your own profile." });
+  }
 });
 
 module.exports = router;
