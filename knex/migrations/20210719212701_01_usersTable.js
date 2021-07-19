@@ -5,7 +5,7 @@ exports.up = function (knex) {
     tbl.increments("id").unsigned();
     tbl.string("fName").notNullable();
     tbl.string("lName").notNullable();
-    tbl.string("email").notNullable();
+    tbl.string("email").unique().notNullable();
     tbl.string("password").notNullable();
     tbl.timestamps(true, true);
   });
