@@ -1,6 +1,5 @@
 /** @format */
 
-const { use } = require("../../api/server");
 const db = require("../knex");
 
 module.exports = {

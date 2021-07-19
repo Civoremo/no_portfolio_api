@@ -2,7 +2,7 @@
 
 const { express, bcrypt } = require("../../api/configMW");
 const { genToken } = require("../middleware/genToken");
-const { protected } = require("../middleware/protectedMW");
+// const { protected } = require("../middleware/protectedMW");
 
 const userDB = require("../helpers/usersDB");
 const router = express.Router();
