@@ -1,5 +1,6 @@
 /** @format */
 
+const { use } = require("../../api/server");
 const db = require("../knex");
 
 module.exports = {
@@ -12,5 +13,14 @@ function registerUser(info) {
 }
 
 function loginUser(info) {
-  return db("users").where({ email: info.email }).first();
+  const userLogging = db("users").where({ email: info.email }).first();
+
+  return Promise.all([userLogging]).then(user => {
+    console.log("found user", user);
+    if (user[0].admin) {
+      return user[0];
+    } else {
+      return [];
+    }
+  });
 }

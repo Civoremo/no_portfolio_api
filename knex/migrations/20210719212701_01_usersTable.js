@@ -7,6 +7,7 @@ exports.up = function (knex) {
     tbl.string("lName").notNullable();
     tbl.string("email").unique().notNullable();
     tbl.string("password").notNullable();
+    tbl.boolean("admin").notNullable().default(false);
     tbl.timestamps(true, true);
   });
 };

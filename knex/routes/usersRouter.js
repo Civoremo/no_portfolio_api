@@ -34,7 +34,11 @@ router.post("/login", (req, res) => {
 
   if (creds.email && creds.password) {
     userDB.loginUser(creds).then(user => {
-      if (user && bcrypt.compareSync(creds.password, user.password)) {
+      if (
+        user &&
+        bcrypt.compareSync(creds.password, user.password) &&
+        user.admin
+      ) {
         const token = genToken(user);
         res.status(200).json({ token, user: user.fName });
       } else {
