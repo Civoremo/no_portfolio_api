@@ -5,7 +5,6 @@ const { genToken } = require("../middleware/genToken");
 const { protected } = require("../middleware/protectedMW");
 
 const userDB = require("../helpers/usersDB");
-const { route } = require("../../api/server");
 const router = express.Router();
 
 router.post("/register", (req, res) => {
@@ -51,7 +50,7 @@ router.post("/login", (req, res) => {
   }
 });
 
-route.put("/update", protected, (req, res) => {
+router.put("/update", protected, (req, res) => {
   // body should contain user id to update and admin flag
   const userInfo = req.body;
 
@@ -64,3 +63,19 @@ route.put("/update", protected, (req, res) => {
       res.status(500).json({ message: "User failed to update" });
     });
 });
+
+router.delete("/delete", protected, (req, res) => {
+  // body should contain user id to delete
+  const userInfo = req.body;
+
+  userDB
+    .deleteUser(userInfo)
+    .then(result => {
+      res.status(200).json({ result, message: "User is deleted." });
+    })
+    .catch(err => {
+      res.status(500).json({ message: "User failed to delete." });
+    });
+});
+
+module.exports = router;
