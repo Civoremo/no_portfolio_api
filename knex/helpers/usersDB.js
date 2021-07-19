@@ -6,6 +6,7 @@ module.exports = {
   registerUser,
   loginUser,
   updateUser,
+  deleteUser,
 };
 
 function registerUser(info) {
@@ -27,4 +28,8 @@ function loginUser(info) {
 
 function updateUser(user) {
   return db("users").where({ id: user.id }).update({ admin: user.admin });
+}
+
+function deleteUser(user) {
+  return db("user").where({ id: user.id }).del();
 }
