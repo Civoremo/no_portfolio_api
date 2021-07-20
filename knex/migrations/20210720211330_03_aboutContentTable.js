@@ -5,7 +5,7 @@ exports.up = function (knex) {
     tbl.increments("id").unsigned();
     tbl.text("textContent").notNullable();
     tbl
-      .integer("aboutSection")
+      .integer("aboutSection_id")
       .unsigned()
       .references("id")
       .inTable("about")
