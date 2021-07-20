@@ -48,4 +48,18 @@ router.delete("/section/delete", protected, (req, res) => {
     });
 });
 
+router.post("/content/register", protected, (req, res) => {
+  const info = req.body;
+
+  aboutDB
+    .registerAboutContent(info)
+    .then(result => {
+      console.log("about content register", result);
+      res.status(201).json({ result });
+    })
+    .catch(err => {
+      res.status(500).json({ message: "About content creation failed." });
+    });
+});
+
 module.exports = router;
