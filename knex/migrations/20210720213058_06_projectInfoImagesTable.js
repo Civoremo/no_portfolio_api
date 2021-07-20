@@ -3,7 +3,7 @@
 exports.up = function (knex) {
   return knex.schema.createTable("projectImage", tbl => {
     tbl.increments("id").unsigned();
-    tbl.text("projectImage").notNullable();
+    tbl.text("image").notNullable();
     tbl
       .integer("project_id")
       .unsigned()
