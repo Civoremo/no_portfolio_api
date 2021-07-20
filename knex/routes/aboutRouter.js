@@ -76,4 +76,18 @@ router.put("/content/update", protected, (req, res) => {
     });
 });
 
+router.delete("/content/delete", protected, (req, res) => {
+  const info = req.body;
+
+  aboutDB
+    .updateAboutContent(info)
+    .then(result => {
+      console.log("about section delete", result);
+      res.status(200).json({ result });
+    })
+    .catch(err => {
+      res.status(500).json({ message: "About content delete failed." });
+    });
+});
+
 module.exports = router;
