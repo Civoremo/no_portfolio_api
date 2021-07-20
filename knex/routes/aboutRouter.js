@@ -62,4 +62,18 @@ router.post("/content/register", protected, (req, res) => {
     });
 });
 
+router.put("/content/update", protected, (req, res) => {
+  const info = req.body;
+
+  aboutDB
+    .updateAboutContent(info)
+    .then(result => {
+      console.log("about content update", result);
+      res.status(200).json({ result });
+    })
+    .catch(err => {
+      res.status(500).json({ message: "About content update failed." });
+    });
+});
+
 module.exports = router;
