@@ -37,7 +37,7 @@ function loginUser(info) {
 
   return Promise.all([userLogging]).then(user => {
     // console.log("found user", user);
-    if (user[0].admin === true) {
+    if (user[0] && user[0].admin === true) {
       return user[0];
     } else {
       return null;

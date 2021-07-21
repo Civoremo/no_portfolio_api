@@ -7,6 +7,15 @@ const { protected } = require("../middleware/protectedMW");
 const userDB = require("../helpers/usersDB");
 const router = express.Router();
 
+router.get("/verify", protected, (req, res) => {
+  console.log(req);
+  if (req.decodedToken) {
+    res.status(200).json({ auth: "OK" });
+  } else {
+    res.status(403).json({ auth: "Declined" });
+  }
+});
+
 router.post("/register", (req, res) => {
   const creds = req.body;
 
