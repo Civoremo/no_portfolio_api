@@ -3,6 +3,7 @@
 const db = require("../knex");
 
 module.exports = {
+  getAbout,
   registerAbout,
   updateAbout,
   deleteAbout,
@@ -10,6 +11,16 @@ module.exports = {
   updateAboutContent,
   deleteAboutContent,
 };
+
+function getAbout() {
+  const about = db("about").select("id", "title");
+  const content = db("aboutContent").select("id", "textContent", "about_id");
+
+  return Promise.all([about, content]).then(result => {
+    console.log("get about", result);
+    let organized = [];
+  });
+}
 
 function registerAbout(info) {
   return db("about").insert(info);

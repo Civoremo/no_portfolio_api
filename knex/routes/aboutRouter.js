@@ -6,6 +6,17 @@ const { protected } = require("../middleware/protectedMW");
 const aboutDB = require("../helpers/aboutDB");
 const router = express.router();
 
+router.get("/all", (req, res) => {
+  aboutDB
+    .getAbout()
+    .then(result => {
+      res.status(200).json({ result });
+    })
+    .catch(err => {
+      res.status(500).json({ result });
+    });
+});
+
 router.post("/section/register", protected, (req, res) => {
   const info = req.body;
 
