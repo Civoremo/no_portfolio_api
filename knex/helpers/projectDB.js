@@ -18,6 +18,7 @@ module.exports = {
 function getMainProjectsInfo() {
   return db("projects").select(
     "id",
+    "title",
     "gifImage",
     "description",
     "stack",
