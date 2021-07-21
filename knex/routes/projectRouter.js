@@ -18,6 +18,20 @@ router.get("/all", (req, res) => {
     });
 });
 
+router.get("/info", (req, res) => {
+  const info = req.body;
+
+  projectDB
+    .getDetailedProjectInfo(info)
+    .then(result => {
+      console.log("project details", result);
+      res.status(200).json(result);
+    })
+    .catch(err => {
+      res.status(500).json({ message: "Failed to get project detailed info." });
+    });
+});
+
 router.post("/register", protected, (req, res) => {
   const info = req.body;
 

@@ -3,6 +3,7 @@
 const db = require("../knex");
 
 module.exports = {
+  getContact,
   registerContact,
   updateContact,
   deleteContact,
@@ -10,6 +11,29 @@ module.exports = {
   updateSocial,
   deleteSocial,
 };
+
+function getContact() {
+  const contact = db("contact").select("id", "location", "email");
+  const social = db("socialMedia").select(
+    "id",
+    "platform_title",
+    "image",
+    "link",
+    "contact_id"
+  );
+
+  return Promise.all([contact, social]).then(result => {
+    let organized = [];
+
+    for (let socialMedia of result[1]) {
+      if (socialMedia.contact_id === result[0][0].id) {
+        organized.push(socialMedia);
+      }
+    }
+
+    return [result[0][0], organized];
+  });
+}
 
 function registerContact(info) {
   return db("contact").insert(info);

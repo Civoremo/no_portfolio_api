@@ -6,6 +6,18 @@ const { protected } = require("../middleware/protectedMW");
 const contactDB = require("../helpers/contactDB");
 const router = express.Router();
 
+router.get("/info", (req, res) => {
+  contactDB
+    .getContact()
+    .then(result => {
+      console.log("contact info", result);
+      res.status(200).json(result);
+    })
+    .catch(err => {
+      res.status(500).json({ message: "Failed to get contact info." });
+    });
+});
+
 router.post("/register", protected, (req, res) => {
   const info = req.body;
 
