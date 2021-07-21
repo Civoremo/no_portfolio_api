@@ -7,13 +7,13 @@ exports.up = function (knex) {
     tbl
       .text("gifImage")
       .notNullable()
-      .default(
+      .defaultTo(
         "https://res.cloudinary.com/civoremo/image/upload/v1626818071/web_portfolio/portfolio_default.png"
       );
     tbl.text("description").notNullable();
     tbl.text("stack");
     tbl.text("liveLink");
-    tbl.text("fronendLink");
+    tbl.text("frontendLink");
     tbl.text("backendLink");
     tbl.timestamps(true, true);
   });

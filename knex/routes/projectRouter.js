@@ -4,7 +4,7 @@ const { express } = require("../../api/configMW");
 const { protected } = require("../middleware/protectedMW");
 
 const projectDB = require("../helpers/projectDB");
-const router = express.router();
+const router = express.Router();
 
 router.post("/register", protected, (req, res) => {
   const info = req.body;

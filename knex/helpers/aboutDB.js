@@ -17,8 +17,21 @@ function getAbout() {
   const content = db("aboutContent").select("id", "textContent", "about_id");
 
   return Promise.all([about, content]).then(result => {
-    console.log("get about", result);
     let organized = [];
+    for (let i = 0; i < result[0].length; i++) {
+      organized.push([result[0][i]]);
+      let aboutContent = [];
+
+      for (let j = 0; j < result[1].length; j++) {
+        if (result[1][j].about_id === result[0][i].id) {
+          aboutContent.push(result[1][j]);
+        }
+      }
+
+      organized[i].push(aboutContent);
+    }
+
+    return organized;
   });
 }
 
