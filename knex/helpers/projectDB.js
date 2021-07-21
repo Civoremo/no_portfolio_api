@@ -3,6 +3,7 @@
 const db = require("../knex");
 
 module.exports = {
+  getMainProjectsInfo,
   registerProject,
   updateProject,
   deleteProject,
@@ -13,6 +14,18 @@ module.exports = {
   updateProjectImage,
   deleteProjectImage,
 };
+
+function getMainProjectsInfo() {
+  return db("projects").select(
+    "id",
+    "gifImage",
+    "description",
+    "stack",
+    "liveLink",
+    "frontendLink",
+    "backendLink"
+  );
+}
 
 function registerProject(info) {
   return db("projects").insert(info);

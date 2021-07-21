@@ -6,6 +6,18 @@ const { protected } = require("../middleware/protectedMW");
 const projectDB = require("../helpers/projectDB");
 const router = express.Router();
 
+router.get("/all", (req, res) => {
+  projectDB
+    .getMainProjectsInfo()
+    .then(result => {
+      console.log("all projects", result);
+      res.status(200).json(result);
+    })
+    .catch(err => {
+      res.status(500).json({ message: "Failed to get main projects info." });
+    });
+});
+
 router.post("/register", protected, (req, res) => {
   const info = req.body;
 
