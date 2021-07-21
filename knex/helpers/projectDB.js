@@ -4,6 +4,7 @@ const db = require("../knex");
 
 module.exports = {
   getMainProjectsInfo,
+  getDetailedProjectInfo,
   registerProject,
   updateProject,
   deleteProject,
@@ -26,6 +27,24 @@ function getMainProjectsInfo() {
     "frontendLink",
     "backendLink"
   );
+}
+
+function getDetailedProjectInfo(info) {
+  const projectDetails = db("projectInfo")
+    .where({ project_id: info.id })
+    .select("id", "description", "link");
+  const projectImages = db("projectImage")
+    .where({ project_id: info.id })
+    .select("id", "image");
+
+  return Promise.all([projectDetails, projectImages]).then(result => {
+    let organized = [];
+
+    organized.push(result[0][0]);
+    organized.push(result[1]);
+
+    return organized;
+  });
 }
 
 function registerProject(info) {
