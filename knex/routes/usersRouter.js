@@ -8,7 +8,7 @@ const userDB = require("../helpers/usersDB");
 const router = express.Router();
 
 router.get("/verify", protected, (req, res) => {
-  console.log(req);
+  // console.log(req);
   if (req.decodedToken) {
     res.status(200).json({ auth: "OK" });
   } else {
