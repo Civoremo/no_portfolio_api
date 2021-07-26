@@ -4,6 +4,7 @@ const db = require("../knex");
 
 module.exports = {
   getAbout,
+  getAboutById,
   registerAbout,
   updateAbout,
   deleteAbout,
@@ -31,6 +32,36 @@ function getAbout() {
       organized[i].push(aboutContent);
     }
 
+    return organized;
+  });
+}
+
+function getAboutById(info) {
+  console.log(info, typeof info);
+  const about = db("about").select("id", "title");
+  const content = db("aboutContent").select("id", "textContent", "about_id");
+
+  return Promise.all([about, content]).then(result => {
+    console.log(result[0]);
+    console.log(result[1]);
+    let organized = [];
+
+    for (let i = 0; i < result[0].length; i++) {
+      console.log(typeof result[0][i].id);
+      console.log("section id", result[0][i].id === info);
+      if (result[0][i].id === info) {
+        organized.push(result[0][i]);
+        let aboutContent = [];
+
+        for (let j = 0; j < result[1].length; j++) {
+          if (result[1][j].about_id === info) {
+            aboutContent.push(result[1][j]);
+          }
+        }
+        organized.push(aboutContent);
+        console.log(organized);
+      }
+    }
     return organized;
   });
 }

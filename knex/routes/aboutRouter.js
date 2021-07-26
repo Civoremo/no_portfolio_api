@@ -10,10 +10,25 @@ router.get("/all", (req, res) => {
   aboutDB
     .getAbout()
     .then(result => {
+      console.log(result);
       res.status(200).json(result);
     })
     .catch(err => {
       res.status(500).json({ message: "Failed to get abouut info." });
+    });
+});
+
+router.get("/:id", (req, res) => {
+  const info = parseInt(req.params.id);
+
+  aboutDB
+    .getAboutById(info)
+    .then(result => {
+      console.log("about by id", result);
+      res.status(200).json(result);
+    })
+    .catch(err => {
+      res.status(500).json({ message: "Failed to get about content by Id." });
     });
 });
 
