@@ -38,8 +38,8 @@ router.post("/section/register", protected, (req, res) => {
   aboutDB
     .registerAbout(info)
     .then(result => {
-      console.log("about section create", result);
-      res.status(201).json({ result });
+      // console.log("about section create", result);
+      res.status(201).json(1);
     })
     .catch(err => {
       res.status(500).json({ message: "About section creation failed." });
