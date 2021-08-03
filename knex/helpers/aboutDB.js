@@ -37,18 +37,18 @@ function getAbout() {
 }
 
 function getAboutById(info) {
-  console.log(info, typeof info);
+  // console.log(info, typeof info);
   const about = db("about").select("id", "title");
   const content = db("aboutContent").select("id", "textContent", "about_id");
 
   return Promise.all([about, content]).then(result => {
-    console.log(result[0]);
-    console.log(result[1]);
+    // console.log(result[0]);
+    // console.log(result[1]);
     let organized = [];
 
     for (let i = 0; i < result[0].length; i++) {
-      console.log(typeof result[0][i].id);
-      console.log("section id", result[0][i].id === info);
+      // console.log(typeof result[0][i].id);
+      // console.log("section id", result[0][i].id === info);
       if (result[0][i].id === info) {
         organized.push(result[0][i]);
         let aboutContent = [];
@@ -59,7 +59,7 @@ function getAboutById(info) {
           }
         }
         organized.push(aboutContent);
-        console.log(organized);
+        // console.log(organized);
       }
     }
     return organized;
@@ -71,7 +71,10 @@ function registerAbout(info) {
 }
 
 function updateAbout(info) {
-  return db("about").where({ id: info.id }).update(info);
+  console.log(info);
+  return db("about")
+    .where({ id: info.id })
+    .update({ textContent: info.textContent });
 }
 
 function deleteAbout(info) {
