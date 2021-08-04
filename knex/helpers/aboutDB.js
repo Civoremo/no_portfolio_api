@@ -15,7 +15,9 @@ module.exports = {
 
 function getAbout() {
   const about = db("about").select("id", "title");
-  const content = db("aboutContent").select("id", "textContent", "about_id");
+  const content = db("aboutContent")
+    .orderBy("id")
+    .select("id", "textContent", "about_id");
 
   return Promise.all([about, content]).then(result => {
     let organized = [];
@@ -39,7 +41,9 @@ function getAbout() {
 function getAboutById(info) {
   // console.log(info, typeof info);
   const about = db("about").select("id", "title");
-  const content = db("aboutContent").select("id", "textContent", "about_id");
+  const content = db("aboutContent")
+    .orderBy("id")
+    .select("id", "textContent", "about_id");
 
   return Promise.all([about, content]).then(result => {
     // console.log(result[0]);

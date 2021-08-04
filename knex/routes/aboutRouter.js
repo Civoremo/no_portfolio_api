@@ -10,7 +10,7 @@ router.get("/all", (req, res) => {
   aboutDB
     .getAbout()
     .then(result => {
-      console.log(result);
+      console.log("about all", result);
       res.status(200).json(result);
     })
     .catch(err => {
