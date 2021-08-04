@@ -76,9 +76,7 @@ function registerAbout(info) {
 
 function updateAbout(info) {
   console.log(info);
-  return db("about")
-    .where({ id: info.id })
-    .update({ textContent: info.textContent });
+  return db("about").where({ id: info.id }).update({ title: info.title });
 }
 
 function deleteAbout(info) {
