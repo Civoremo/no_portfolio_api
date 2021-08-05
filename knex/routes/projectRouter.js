@@ -19,9 +19,7 @@ router.get("/all", (req, res) => {
 });
 
 router.get("/info/:id", (req, res) => {
-  // const info = req.body;
   const info = parseInt(req.params.id);
-  console.log("info req", typeof info);
 
   projectDB
     .getDetailedProjectInfo(info)
@@ -58,6 +56,7 @@ router.put("/update", protected, (req, res) => {
       res.status(200).json({ result });
     })
     .catch(err => {
+      // console.log("something went wrong with update");
       res.status(500).json({ message: "Project failed to update." });
     });
 });
