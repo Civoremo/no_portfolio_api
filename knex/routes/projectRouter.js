@@ -39,7 +39,7 @@ router.post("/register", protected, (req, res) => {
     .registerProject(info)
     .then(result => {
       console.log("project registered", result);
-      res.status(201).json(1);
+      res.status(201).json(result[0]);
     })
     .catch(err => {
       res.status(500).json({ message: "Project creation failed." });
@@ -82,7 +82,7 @@ router.post("/content/register", protected, (req, res) => {
     .registerProjectInfo(info)
     .then(result => {
       console.log("project content registered", result);
-      res.status(201).json({ result });
+      res.status(201).json(1);
     })
     .catch(err => {
       res.status(500).json({ message: "Project content failed to register." });
