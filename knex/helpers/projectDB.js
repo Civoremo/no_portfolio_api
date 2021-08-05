@@ -51,7 +51,7 @@ function getDetailedProjectInfo(info) {
 }
 
 function registerProject(info) {
-  return db("projects").insert(info);
+  return db("projects").insert(info).returning("id");
 }
 
 function updateProject(info) {
