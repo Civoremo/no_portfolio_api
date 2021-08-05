@@ -15,6 +15,7 @@ exports.up = function (knex) {
     tbl.text("liveLink");
     tbl.text("frontendLink");
     tbl.text("backendLink");
+    tbl.boolean("featured").notNullable().defaultTo(false);
     tbl.timestamps(true, true);
   });
 };

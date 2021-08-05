@@ -17,24 +17,27 @@ module.exports = {
 };
 
 function getMainProjectsInfo() {
-  return db("projects").select(
-    "id",
-    "title",
-    "gifImage",
-    "description",
-    "stack",
-    "liveLink",
-    "frontendLink",
-    "backendLink"
-  );
+  return db("projects")
+    .orderBy("id")
+    .select(
+      "id",
+      "title",
+      "gifImage",
+      "description",
+      "stack",
+      "liveLink",
+      "frontendLink",
+      "backendLink",
+      "featured"
+    );
 }
 
 function getDetailedProjectInfo(info) {
   const projectDetails = db("projectInfo")
-    .where({ project_id: info.id })
+    .where({ project_id: info })
     .select("id", "description", "link");
   const projectImages = db("projectImage")
-    .where({ project_id: info.id })
+    .where({ project_id: info })
     .select("id", "image");
 
   return Promise.all([projectDetails, projectImages]).then(result => {
