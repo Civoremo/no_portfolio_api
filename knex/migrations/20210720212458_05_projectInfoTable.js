@@ -3,7 +3,7 @@
 exports.up = function (knex) {
   return knex.schema.createTable("projectInfo", tbl => {
     tbl.increments("id").unsigned();
-    tbl.text("description").notNullable().defaultsTo("Temp Text ...");
+    tbl.text("description").notNullable().defaultTo("Temp Text ...");
     tbl.text("link");
     tbl
       .integer("project_id")
