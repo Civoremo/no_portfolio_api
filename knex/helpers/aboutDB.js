@@ -14,7 +14,7 @@ module.exports = {
 };
 
 function getAbout() {
-  const about = db("about").select("id", "title");
+  const about = db("about").select("id", "title").orderBy("id");
   const content = db("aboutContent")
     .orderBy("id")
     .select("id", "textContent", "about_id");

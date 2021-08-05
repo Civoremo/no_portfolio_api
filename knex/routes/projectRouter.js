@@ -18,8 +18,10 @@ router.get("/all", (req, res) => {
     });
 });
 
-router.get("/info", (req, res) => {
-  const info = req.body;
+router.get("/info/:id", (req, res) => {
+  // const info = req.body;
+  const info = parseInt(req.params.id);
+  console.log("info req", typeof info);
 
   projectDB
     .getDetailedProjectInfo(info)
@@ -39,7 +41,7 @@ router.post("/register", protected, (req, res) => {
     .registerProject(info)
     .then(result => {
       console.log("project registered", result);
-      res.status(201).json({ result });
+      res.status(201).json(1);
     })
     .catch(err => {
       res.status(500).json({ message: "Project creation failed." });
