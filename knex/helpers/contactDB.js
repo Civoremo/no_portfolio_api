@@ -48,7 +48,7 @@ function deleteContact(info) {
 }
 
 function registerSocial(info) {
-  return db("socialMedia").insert(info);
+  return db("socialMedia").insert(info).returning("id");
 }
 
 function updateSocial(info) {
