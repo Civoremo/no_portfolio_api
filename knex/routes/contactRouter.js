@@ -39,7 +39,7 @@ router.put("/update", protected, (req, res) => {
     .updateContact(info)
     .then(result => {
       console.log("contact updated", result);
-      res.status(200).json({ result });
+      res.status(200).json(1);
     })
     .catch(err => {
       res.status(500).json({ message: "Contact failed to update." });
@@ -62,12 +62,13 @@ router.delete("/delete", protected, (req, res) => {
 
 router.post("/social/register", protected, (req, res) => {
   const info = req.body;
+  // console.log(info);
 
   contactDB
     .registerSocial(info)
     .then(result => {
       console.log("social registered", result);
-      res.status(201).json({ result });
+      res.status(201).json(result);
     })
     .catch(err => {
       res.status(500).json({ message: "Social info failed to register." });
