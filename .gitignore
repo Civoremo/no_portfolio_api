@@ -85,4 +85,4 @@ node_modules
 
 package-lock.json
 
-/knex/seeds
+# /knex/seeds
