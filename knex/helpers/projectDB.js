@@ -18,7 +18,7 @@ module.exports = {
 
 function getMainProjectsInfo() {
   return db("projects")
-    .orderBy("id")
+    .orderBy("id", "desc")
     .select(
       "id",
       "title",
